@@ -1,0 +1,2 @@
+模拟SpringDM自动注入@ReferenceService服务<br/>
+ReferenceServiceAspect切入@ReferenceService方法，替换传入对象为ApiFactory.getApi生成cglib动态代理对象<br/>

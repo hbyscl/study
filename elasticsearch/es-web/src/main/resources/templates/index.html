@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <title>elk日志查询</title>
+    <link rel="stylesheet" type="text/css" href="../static/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/dist/css/docs.min.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/css/docs.min.css"/>
+    <script type="text/javascript" src="dist/js/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        $(function () {
+            var resultCur = 0;
+
+            function appendResult(data) {
+                var msg = data.message;
+                var clone = $("#model").clone(true);
+                clone.removeClass("hidden");
+                var title = clone.find("a");
+                title.attr("href", "#collapse" + (++resultCur));
+                title.attr("aria-controls", "collapse" + resultCur);
+                title.html(msg.length > 130 ? (msg.substr(0, 130) + "......") : msg);
+                var panel_collapse = clone.find(".panel-collapse");
+                panel_collapse.attr("id", "collapse" + resultCur);
+                panel_collapse.attr("aria-labelledby", "heading" + resultCur);
+                var panel_body = panel_collapse.find(".panel-body");
+                panel_body.html(msg);
+                var accordion = $("#accordion");
+                accordion.append(clone);
+            }
+
+            function showInfo(val) {
+                $("#info").text(val);
+            }
+
+            function buildKey() {
+                var key = $("#key").val();
+                if (!key) {
+                    return "*";
+                }
+                function check(str, p) {
+                    var arr = str.split(p);
+                    return arr.length == 3 && arr[0] == "" && arr[1] == "-" && arr[2] == "";
+                }
+
+                var date_p = /\d{4}(\-|\/|.)\d{1,2}\1\d{1,2}/;
+                var time_p = /\d{2}\:\d{2}\:\d{2}/;
+                var datetime_p = /\d{4}(\-|\/|.)\d{1,2}\1\d{1,2}\s\d{2}\:\d{2}\:\d{2}/;
+                var number_p = /-?[1-9]\d*/;
+                var zhcn_p = /[\u4e00-\u9fa5]/;
+                var empty_p = /\s/;
+                if (check(key,datetime_p) || check(key,date_p) || check(key,time_p)) {
+                    return '"' + key + '"';
+                }
+                if(!zhcn_p.test(key) && !number_p.test(key)){
+                    return '*' + key.trim().replace(" ","*").replace(".","*") + '*';
+                }
+
+                return key;
+            }
+
+            function search() {
+                $("#accordion").html('');
+                showInfo("查询中......");
+                $.get("/soterlog/search/" + buildKey(), {}, function (data) {
+                    var messages = data.data;
+                    var page = data.page;
+                    if (messages) {
+                        $(messages).each(function (i) {
+                            appendResult(messages[i]);
+                        })
+                    }
+                    if (page) {
+                        var pageNo = page.page;
+                        var size = page.size;
+                        var startCur = (pageNo - 1) * size + 1;
+                        var endCur = pageNo * size;
+                        var info = "查询结果" + page.totalCount + "条";
+                        if (page.totalCount > 0) {
+                            info += " 显示" + startCur + "至" + endCur + "条";
+                        }
+                        showInfo(info);
+                    }
+
+                });
+            }
+
+            $("#search").on("click", function () {
+                search();
+            });
+
+            $("#key").on("keypress", function (e) {
+                if (e.keyCode == 13) {
+                    search();
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+
+</head>
+<body>
+
+<div class="page-header" style="text-align: center">
+    <h1>Soter日志查询</h1>
+    <div class="row" style="margin-left: 10%">
+        <div class="col-lg-10">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="key"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" id="search" type="button">搜索</button>
+                </span>
+            </div>
+            <br/>
+            <span id="info"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" role="main" id="result">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default hidden" id="model">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="true" aria-controls="">
+            </a>
+        </h4>
+    </div>
+    <div id="" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

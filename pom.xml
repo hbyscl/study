@@ -11,6 +11,7 @@
         <module>aspectj</module>
         <module>mdc-log</module>
         <module>java-basic</module>
+        <module>elasticsearch</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

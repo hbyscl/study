@@ -12,6 +12,7 @@
         <module>mdc-log</module>
         <module>java-basic</module>
         <module>elasticsearch</module>
+        <module>eslib</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

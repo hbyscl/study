@@ -44,20 +44,25 @@
                 }
                 function check(str, p) {
                     var arr = str.split(p);
+                    if (arr.length == 2 && arr[0] == "" && arr[1] == "") {
+                        return true;
+                    }
                     return arr.length == 3 && arr[0] == "" && arr[1] == "-" && arr[2] == "";
                 }
 
                 var date_p = /\d{4}(\-|\/|.)\d{1,2}\1\d{1,2}/;
                 var time_p = /\d{2}\:\d{2}\:\d{2}/;
+                var hm_p = /\d{2}\:\d{2}/;
                 var datetime_p = /\d{4}(\-|\/|.)\d{1,2}\1\d{1,2}\s\d{2}\:\d{2}\:\d{2}/;
                 var number_p = /-?[1-9]\d*/;
                 var zhcn_p = /[\u4e00-\u9fa5]/;
                 var empty_p = /\s/;
-                if (check(key,datetime_p) || check(key,date_p) || check(key,time_p)) {
+                if (check(key, datetime_p) || check(key, date_p) || check(key, time_p)|| check(key, hm_p)) {
                     return '"' + key + '"';
                 }
-                if(!zhcn_p.test(key) && !number_p.test(key)){
-                    return '*' + key.trim().replace(" ","*").replace(".","*") + '*';
+
+                if (!zhcn_p.test(key) && !number_p.test(key)) {
+                    return '*' + key.trim().replace(" ", "*").replace(".", "*") + '*';
                 }
 
                 return key;
@@ -67,6 +72,11 @@
                 $("#accordion").html('');
                 showInfo("查询中......");
                 $.get("/soterlog/search/" + buildKey(), {}, function (data) {
+                    if(data.code != 0){
+                        showInfo("查询结果0条");
+                        console.log(data);
+                        return;
+                    }
                     var messages = data.data;
                     var page = data.page;
                     if (messages) {

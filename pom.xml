@@ -12,7 +12,7 @@
         <module>mdc-log</module>
         <module>java-basic</module>
         <module>elasticsearch</module>
-        <module>eslib</module>
+        <module>mybatis-generator</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

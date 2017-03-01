@@ -13,6 +13,7 @@
         <module>java-basic</module>
         <module>elasticsearch</module>
         <module>mybatis-generator</module>
+        <module>restart-tomcat</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

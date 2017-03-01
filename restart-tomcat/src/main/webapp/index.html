@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#mask").hide();
+           $("#restart").on("click",function(){
+               $("#mask").show();
+               $.get("restart",{},function(data){
+                   $("#result").html(data);
+               })
+           })
+        });
+    </script>
+</head>
+<body>
+<button id="restart">restart</button>
+<div id="result"></div>
+<div id="mask" style="position: absolute;margin-top: 0;margin-left: 0;width: 100%;height: 100%;background-color: aquamarine;"></div>
+</body>
+</html>

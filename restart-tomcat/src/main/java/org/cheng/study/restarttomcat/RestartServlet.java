@@ -1,5 +1,6 @@
 package org.cheng.study.restarttomcat;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +15,20 @@ import java.lang.management.ManagementFactory;
  */
 public class RestartServlet extends HttpServlet {
 
+    private ServletConfig config;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        this.config = config;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        File directory = new File("");//设定为当前文件夹
-        String binPath = directory.getAbsolutePath();
+        String realPath = config.getServletContext().getRealPath("/");
+        String binDir = realPath.substring(0, realPath.indexOf("webapps"))+"bin";
         String name = ManagementFactory.getRuntimeMXBean().getName();
         String pid = name.split("@")[0];
-        RestartUtil.restart(binPath,pid);
+        RestartUtil.restart(binDir,pid);
         PrintWriter out = resp.getWriter();
         out.println("you are welcome " );
         out.flush();

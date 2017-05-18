@@ -45,7 +45,12 @@ public class RestartUtil {
 
     }
     private static void linux(String tomcatBinDir,String pid) throws Exception{
-        String command = "cd " + tomcatBinDir + " && kill -9 " + pid + " & sh catalina.sh start";
+        String command = "kill -9 " + pid + "&& " +
+                "echo kill done && " +
+                "sleep 3 && "+
+                "echo start tomcat && " +
+                "sh "+tomcatBinDir+"/catalina.sh start && "+
+                "echo restart done";
         System.out.println("command = " + command);
         Runtime.getRuntime().exec(command);
     }

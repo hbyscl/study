@@ -1,0 +1,61 @@
+<MSG06 xmlns="urn:schemas-edifactoring-com:MSG06">
+    <MsgInfo>[ status=M; ]
+        <SenderCode>[ status=M; format=AN7; codelist=Factor; ]</SenderCode>
+        <ReceiverCode>[ status=M; format=AN7; codelist=Factor; ]</ReceiverCode>
+        <CreatedBy>[ status=M; format=AN..16; ]</CreatedBy>
+        <SequenceNr>[ status=M; format=N..10; no input; ]</SequenceNr>
+        <DateTime>[ status=C; format=YYYY-MM-DDTHH:MM:SS; no input; ]</DateTime>
+        <Status>[ status=M; format=N..2; no input; ]</Status>
+        <Error Code="[ status=M; format=N2; codelist=MessageError; ]">[ status=C; format=AN; no input;
+            ]
+        </Error>
+    </MsgInfo>
+    <EF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </EF>
+    <IF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </IF>
+    <ReplyDate>[ status=M; format=YYYY-MM-DD; ]</ReplyDate>
+    <CreditCoverNr>[ status=M; format=AN..35; ]</CreditCoverNr>
+    <MsgFunction>[ status=M; format=N..3; codelist=MessageFunction; ]</MsgFunction>
+    <OrigReqNr>[ status=M; format=AN..35; ]</OrigReqNr>
+    <OrigReqDate>[ status=M; format=YYYY-MM-DD; ]</OrigReqDate>
+    <Seller>[ status=M; ]
+        <SellerNr>[ status=M; format=AN..35; codelist=FSBC; ]</SellerNr>
+        <SellerName>[ status=M; format=AN..35; ]</SellerName>
+        <IFOwnSellerNr>[ status=C; format=AN..35; ]</IFOwnSellerNr>
+    </Seller>
+    <Buyer>[ status=M; ]
+        <BuyerCompanyRegNr>[ status=C; format=AN..35; ]</BuyerCompanyRegNr>
+        <ResponseAgency>[ status=C; format=AN..35; ]</ResponseAgency>
+        <BuyerNr>[ status=M; format=AN..35; codelist=FSBC; ]</BuyerNr>
+        <IFOwnBuyerNr>[ status=C; format=AN..35; ]</IFOwnBuyerNr>
+        <BuyerName>[ status=M; format=AN..35; ]</BuyerName>
+        <NameCont>[ status=C; format=AN..35; ]</NameCont>
+        <Street>[ status=C; format=AN..35; ]</Street>
+        <City>[ status=C; format=AN..35; ]</City>
+        <State>[ status=C; format=AN..9; ]</State>
+        <Postcode>[ status=C; format=AN..9; ]</Postcode>
+        <Country>[ status=C; format=AN2; codelist=Country; ]</Country>
+        <ContactName>[ status=C; format=AN..35; ]</ContactName>
+        <Telephone>[ status=C; format=AN..25; ]</Telephone>
+        <Fax>[ status=C; format=AN..25; ]</Fax>
+        <Email>[ status=C; format=AN..70; ]</Email>
+    </Buyer>
+    <CreditCoverDetails>[ status=M; ]
+        <CreditCoverAmt>[ status=M; format=N14.2{amount}; ]</CreditCoverAmt>
+        <Currency>[ status=M; format=AN3; codelist=Currency; ]</Currency>
+        <OwnRiskAmt>[ status=C; format=N14.2{amount}; ]</OwnRiskAmt>
+        <OwnRiskPerc>[ status=C; format=N3.4{0-100.0000}; ]</OwnRiskPerc>
+        <LongCreditPeriodDays>[ status=C; format=N..3{0-999}; ]</LongCreditPeriodDays>
+        <ValidFrom>[ status=C; format=YYYY-MM-DD; ]</ValidFrom>
+        <ExpiryDate>[ status=C; format=YYYY-MM-DD; ]</ExpiryDate>
+        <Response>[ status=M; format=N..3; codelist=Response; ]</Response>
+        <Reason>[ status=C; format=N..3; codelist=Reason; ]</Reason>
+        <CreditCoverAmtCheck>[ status=M; format=N14.2{amount}; ]</CreditCoverAmtCheck>
+    </CreditCoverDetails>
+    <MsgText>[ status=C; format=AN..1400; ]</MsgText>
+</MSG06>

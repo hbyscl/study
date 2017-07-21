@@ -1,0 +1,36 @@
+<MSG20 xmlns="urn:schemas-edifactoring-com:MSG20">
+    <MsgInfo>[ status=M; ]
+        <SenderCode>[ status=M; format=AN7; codelist=Factor; ]</SenderCode>
+        <ReceiverCode>[ status=M; format=AN7; codelist=Factor; ]</ReceiverCode>
+        <CreatedBy>[ status=M; format=AN..16; ]</CreatedBy>
+        <SequenceNr>[ status=M; format=N..10; no input; ]</SequenceNr>
+        <DateTime>[ status=C; format=YYYY-MM-DDTHH:MM:SS; no input; ]</DateTime>
+        <Status>[ status=M; format=N..2; no input; ]</Status>
+        <Error Code="[ status=M; format=N2; codelist=MessageError; ]">[ status=C; format=AN; no input;
+            ]
+        </Error>
+    </MsgInfo>
+    <EF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </EF>
+    <IF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </IF>
+    <ChangeDate>[ status=M; format=YYYY-MM-DD; ]</ChangeDate>
+    <MsgFunction>[ status=M; format=N..3; codelist=MessageFunction; ]</MsgFunction>
+    <Currency>[ status=C; format=AN3; codelist=Currency; ]</Currency>
+    <Seller>[ status=C; ]
+        <CurrentSellerNr>[ status=C; format=AN..35; codelist=FSBC; ]</CurrentSellerNr>
+        <SellerName>[ status=C; format=AN..35; no input; ]</SellerName>
+        <NewSellerNr>[ status=C; format=AN..35; ]</NewSellerNr>
+        <NewSellerName>[ status=C; format=AN..35; ]</NewSellerName>
+    </Seller>
+    <Buyer>[ status=C; ]
+        <CurrentBuyerNr>[ status=C; format=AN..35; codelist=FSBC; ]</CurrentBuyerNr>
+        <BuyerName>[ status=C; format=AN..35; no input; ]</BuyerName>
+        <NewBuyerNr>[ status=C; format=AN..35; ]</NewBuyerNr>
+    </Buyer>
+    <MsgText>[ status=C; format=AN..350; ]</MsgText>
+</MSG20>

@@ -1,0 +1,34 @@
+<MSG17 xmlns="urn:schemas-edifactoring-com:MSG17">
+    <MsgInfo>[ status=M; ]
+        <SenderCode>[ status=M; format=AN7; codelist=Factor; ]</SenderCode>
+        <ReceiverCode>[ status=M; format=AN7; codelist=Factor; ]</ReceiverCode>
+        <CreatedBy>[ status=M; format=AN..16; ]</CreatedBy>
+        <SequenceNr>[ status=M; format=N..10; no input; ]</SequenceNr>
+        <DateTime>[ status=C; format=YYYY-MM-DDTHH:MM:SS; no input; ]</DateTime>
+        <Status>[ status=M; format=N..2; no input; ]</Status>
+        <Error Code="[ status=M; format=N2; codelist=MessageError; ]">[ status=C; format=AN; no input;
+            ]
+        </Error>
+    </MsgInfo>
+    <EF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </EF>
+    <IF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </IF>
+    <MsgDate>[ status=M; format=YYYY-MM-DD; ]</MsgDate>
+    <MsgType>[ status=M; format=N..3; codelist=MessageType; ]</MsgType>
+    <DocType>[ status=M; format=N..3; codelist=DocumentType; ]</DocType>
+    <InvCreditNoteNr>[ status=M; format=AN..35; ]</InvCreditNoteNr>
+    <InvCreditNoteDate>[ status=M; format=YYYY-MM-DD; ]</InvCreditNoteDate>
+    <PmtMethod>[ status=C; format=N..3; codelist=PaymentMethod; ]</PmtMethod>
+    <Seller>[ status=C; ]
+        <SellerNr>[ status=C; format=AN..35; codelist=FSBC; ]</SellerNr>
+        <SellerName>[ status=C; format=AN..35; no input; ]</SellerName>
+    </Seller>
+    <InvCreditNoteCurrency>[ status=M; format=AN3; codelist=Currency; ]</InvCreditNoteCurrency>
+    <InvCreditNoteAmt>[ status=M; format=N14.2{amount}; ]</InvCreditNoteAmt>
+    <MsgText>[ status=M; format=AN..7000; ]</MsgText>
+</MSG17>

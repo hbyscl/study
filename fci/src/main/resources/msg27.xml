@@ -1,0 +1,48 @@
+<MSG27 xmlns="urn:schemas-edifactoring-com:MSG27">
+    <MsgInfo>[ status=M; ]
+        <SenderCode>[ status=M; format=AN7; codelist=tblFactor; ]</SenderCode>
+        <ReceiverCode>[ status=M; format=AN7; codelist=tblFactor; ]</ReceiverCode>
+        <CreatedBy>[ status=M; format=AN..16; ]</CreatedBy>
+        <SequenceNr>[ status=C; format=N..15{0..2^64}; ]</SequenceNr>
+        <DateTime>[ status=C; format=YYYY-MM-DDTHH:MM:SS; ]</DateTime>
+        <Status>[ status=C; format=N..3{0..255}; codelist=refMessageStatus; ]</Status>
+        <Error Code="[ status=M; format=N..3{0..255}; codelist=refMessageError; ]">[ status=C; format=AN
+            ]
+        </Error>
+    </MsgInfo>
+    <EF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=tblFactor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; ]</FactorName>
+    </EF>
+    <IF>[ status=M; ]
+        <FactorCode>[ status=M; format= ]</FactorCode>
+        <FactorName>[ status=C; format= ]</FactorName>
+    </IF>
+    <MsgDate>[ status=M; format= ]</MsgDate>
+    <InvCreditNoteNr>[ status=M; format=AN..35; ]</InvCreditNoteNr>
+    <InvCreditNoteDate>[ status=M; format= ]</InvCreditNoteDate>
+    <PmtMethod>[ status=C; format= codelist=rfcPaymentMethod; ]</PmtMethod>
+    <InvInstructions>[ status=C; format=AN..70; ]</InvInstructions>
+    <VatrNrExportFactor>[ status=C; format=AN..35; ]</VatrNrExportFactor>
+    <VatrNrImportFactor>[ status=C; format=AN..35; ]</VatrNrImportFactor>
+    <CommissionStatementDetails>[ status=M..999; ]
+        <SellerNr>[ status=C; format=AN..35; ]</SellerNr>
+        <SellerName>[ status=C; format=AN..35; ]</SellerName>
+        <InvBatchNr>[ status=M; format=AN..35; ]</InvBatchNr>
+        <InvBatchDate>[ status=M; format= ]</InvBatchDate>
+        <NrOfItems>[ status=C; format=N..5{0..65535}; ]</NrOfItems>
+        <BatchValueAmt>[ status=C; format=N..14.4; ]</BatchValueAmt>
+        <HandlingFee>[ status=C; format=N..14.4; ]</HandlingFee>
+        <HandlingFeeCurr>[ status=C; format=AN3; codelist=tblCurrency; ]</HandlingFeeCurr>
+        <HandlingFeeExchToInv>[ status=C; format=N..14.4; ]</HandlingFeeExchToInv>
+        <HandlingCharge>[ status=C; format=N..14.4; ]</HandlingCharge>
+        <HandlingComm>[ status=C; format=N..14.4; ]</HandlingComm>
+        <CreditCharge>[ status=C; format=N..14.4; ]</CreditCharge>
+        <CreditComm>[ status=C; format=N..14.4; ]</CreditComm>
+        <CommDetails>[ status=C; format=AN..70; ]</CommDetails>
+        <TotalComm>[ status=M; format=N..14.4; ]</TotalComm>
+    </CommissionStatementDetails>
+    <InvCreditNoteCurrency>[ status=M; format=AN3; codelist=tblCurrency; ]</InvCreditNoteCurrency>
+    <InvCreditNoteAmt>[ status=M; format=N..14.4; ]</InvCreditNoteAmt>
+    <MsgText>[ status=M; format=AN..7000; ]</MsgText>
+</MSG27>

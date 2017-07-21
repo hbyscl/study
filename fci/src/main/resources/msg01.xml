@@ -1,0 +1,66 @@
+<MSG01 xmlns="urn:schemas-edifactoring-com:MSG01">
+    <MsgInfo>[ status=M; ]
+        <SenderCode>[ status=M; format=AN7; codelist=Factor; ]</SenderCode>
+        <ReceiverCode>[ status=M; format=AN7; codelist=Factor; ]</ReceiverCode>
+        <CreatedBy>[ status=M; format=AN..16; ]</CreatedBy>
+        <SequenceNr>[ status=M; format=N..10; no input; ]</SequenceNr>
+        <DateTime>[ status=C; format=YYYY-MM-DDTHH:MM:SS; no input; ]</DateTime>
+        <Status>[ status=M; format=N..2; no input; ]</Status>
+        <Error Code="[ status=M; format=N2; codelist=MessageError; ]">[ status=C; format=AN; no input; ]</Error>
+    </MsgInfo>
+    <EF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </EF>
+    <IF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </IF>
+    <MsgDate>[ status=M; format=YYYY-MM-DD; ]</MsgDate>
+    <MsgFunction>[ status=M; format=N..3; codelist=MessageFunction; ]</MsgFunction>
+    <FactAgreemSigned>[ status=C; format=YYYY-MM-DD; ]</FactAgreemSigned>
+    <Seller>[ status=M; ]
+        <SellerCompanyRegNr>[ status=C; format=AN..35; ]</SellerCompanyRegNr>
+        <ResponseAgency>[ status=C; format=AN..35; ]</ResponseAgency>
+        <SellerNr>[ status=M; format=AN..35; ]</SellerNr>
+        <SellerName>[ status=M; format=AN..35; ]</SellerName>
+        <NameCont>[ status=C; format=AN..35; ]</NameCont>
+        <Street>[ status=M; format=AN..35; ]</Street>
+        <City>[ status=M; format=AN..35; ]</City>
+        <State>[ status=C; format=AN..9; ]</State>
+        <Postcode>[ status=M; format=AN..9; ]</Postcode>
+        <Country>[ status=M; format=AN2; codelist=Country; ]</Country>
+    </Seller>
+    <SellerDetails>[ status=M; ]
+        <BusinessProduct>[ status=M; format=AN..70; ]</BusinessProduct>
+        <NetPmtTerms>[ status=M; format=N..3{0-999}; ]</NetPmtTerms>
+        <Discount1Days>[ status=C; format=N..3{0-999}; ]</Discount1Days>
+        <Discount1Perc>[ status=C; format=N3.4{0-100.0000}; ]</Discount1Perc>
+        <Discount2Days>[ status=C; format=N..3{0-999}; ]</Discount2Days>
+        <Discount2Perc>[ status=C; format=N3.4{0-100.0000}; ]</Discount2Perc>
+        <GracePeriod>[ status=C; format=N..3{0-999}; ]</GracePeriod>
+        <InvCurrency1>[ status=M; format=AN3; codelist=Currency; ]</InvCurrency1>
+        <InvCurrency2>[ status=C; format=AN3; codelist=Currency; ]</InvCurrency2>
+        <InvCurrency3>[ status=C; format=AN3; codelist=Currency; ]</InvCurrency3>
+        <InvCurrency4>[ status=C; format=AN3; codelist=Currency; ]</InvCurrency4>
+        <InvCurrency5>[ status=C; format=AN3; codelist=Currency; ]</InvCurrency5>
+        <ChargeBackPerc>[ status=M; format=N3.4{0-100.0000}; ]</ChargeBackPerc>
+        <ChargeBackAmt>[ status=M; format=N14.2{amount}; ]</ChargeBackAmt>
+        <ChargeBackCurrency>[ status=M; format=AN3; codelist=Currency; ]</ChargeBackCurrency>
+        <ExpTotSellerTurnover>[ status=M; format=AN..70; ]</ExpTotSellerTurnover>
+        <ExpNrBuyers>[ status=M; format=N..5{0-65535}; ]</ExpNrBuyers>
+        <ExpNrInvoices>[ status=M; format=N..5{0-65535}; ]</ExpNrInvoices>
+        <ExpNrCreditNotes>[ status=C; format=N..5{0-65535}; ]</ExpNrCreditNotes>
+        <ExpTurnover>[ status=M; format=AN..70; ]</ExpTurnover>
+        <ExpOtherTurnover>[ status=M; format=AN..70; ]</ExpOtherTurnover>
+        <OtherFactors>[ status=M; format=AN..70; ]</OtherFactors>
+        <ServiceRequired>[ status=M; format=N..3; codelist=ServiceRequired; ]</ServiceRequired>
+        <NormDeliveryTerms>[ status=C; format=AN..70; ]</NormDeliveryTerms>
+    </SellerDetails>
+    <BankDetailsSeller>[ status=C; ]
+        <AccountNr>[ status=C; format=AN..35; ]</AccountNr>
+        <BankName>[ status=C; format=AN..70; ]</BankName>
+        <BranchName>[ status=C; format=AN..70; ]</BranchName>
+    </BankDetailsSeller>
+    <MsgText>[ status=C; format=AN..1400; ]</MsgText>
+</MSG01>

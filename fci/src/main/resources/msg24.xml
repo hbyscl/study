@@ -1,0 +1,26 @@
+<MSG24 xmlns="urn:schemas-edifactoring-com:MSG24">
+    <MsgInfo>[ status=M; ]
+        <SenderCode>[ status=M; format=AN7; codelist=Factor; ]</SenderCode>
+        <ReceiverCode>[ status=M; format=AN7; codelist=Factor; ]</ReceiverCode>
+        <CreatedBy>[ status=M; format=AN..16; ]</CreatedBy>
+        <SequenceNr>[ status=C; format=N..15{0-2^64}; ]</SequenceNr>
+        <DateTime>[ status=C; format=YYYY-MM-DDTHH:MM:SS; no input; ]</DateTime>
+        <Error Code="[ status=M; format=N2; codelist=MessageError; ]">[ status=C; format=AN; no input;
+            ]
+        </Error>
+    </MsgInfo>
+    <EF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </EF>
+    <IF>[ status=M; ]
+        <FactorCode>[ status=M; format=AN7; codelist=Factor; ]</FactorCode>
+        <FactorName>[ status=C; format=AN..35; no input; ]</FactorName>
+    </IF>
+    <MsgDate>[ status=M; format=YYYY-MM-DD; ]</MsgDate>
+    <CurrentAccount>[ status=M; ]
+        <Currency>[ status=M; format=AN3; codelist=rAcctCurrencies; ]</Currency>
+        <AdjustmentAmount>[ status=M; format=N14.2{(negative) amount}; ]</AdjustmentAmount>
+    </CurrentAccount>
+    <MsgText>[ status=C; format=AN..1400; ]</MsgText>
+</MSG24>

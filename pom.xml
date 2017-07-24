@@ -16,6 +16,7 @@
         <module>restart-tomcat</module>
         <module>apache-commons-text</module>
         <module>ldap</module>
+        <module>fci</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

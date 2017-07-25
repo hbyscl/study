@@ -9,8 +9,8 @@ import java.util.Set;
 public class RuleClassInfo {
 
     private String className;
-    private Set<FieldInfo> fieldInfoList = new LinkedHashSet<>();
-    private Set<InnerRuleClassInfo> innerClassList = new LinkedHashSet<>();
+    private Set<FieldInfo> fieldInfoList = new LinkedHashSet<FieldInfo>();
+    private Set<InnerRuleClassInfo> innerClassList = new LinkedHashSet<InnerRuleClassInfo>();
 
     public RuleClassInfo(String className) {
         this.className = className;

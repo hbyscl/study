@@ -20,11 +20,19 @@ import java.util.List;
 import static org.dom4j.DocumentHelper.*;
 
 /**
- * Created by Administrator on 2017/7/21.
+ * EDI报文处理工具
+ * Created by li.cheng on 2017/7/21.
  */
 public class MSGFactory extends EDIObject {
 
-    public static String toXML(MSG msg) throws EDIParseException {
+    /**
+     * 将报文实体对象转换为EDI标准的XML字符串
+     *
+     * @param msg 报文实体
+     * @return XML
+     * @throws EDIParseException
+     */
+    public static String buildXML(MSG msg) throws EDIParseException {
         String check = msg.check();
         if ("".equals(check)) {
             try {
@@ -49,7 +57,16 @@ public class MSGFactory extends EDIObject {
         throw new EDIParseException(check);
     }
 
-    public static <T extends MSG> T createMsg(Class<T> msg, String xml) throws EDIParseException {
+    /**
+     * 根据标准的EDI报文XML创建报文实体对象
+     *
+     * @param msg 报文实体类
+     * @param xml 报文字符串
+     * @param <T> MSG01~MSG74
+     * @return 报文实体对象
+     * @throws EDIParseException
+     */
+    public static <T extends MSG> T buildMSG(Class<T> msg, String xml) throws EDIParseException {
         try {
             T obj = msg.newInstance();
             Document doc = DocumentHelper.parseText(xml);
@@ -72,7 +89,14 @@ public class MSGFactory extends EDIObject {
         }
     }
 
-    public static void generatorJavaVo(File xmlFile, String voPath) throws EDIParseException {
+    /**
+     * 通过EDI提供的标准带规则定义的XML文件,生成Java代码
+     * @param xmlFile   <p>带有规则定义的原始XML文件
+     *                  [ status=M; format=N..3; codelist=DisputeReason;]</p>
+     * @param voPath    Java实体路径
+     * @throws EDIParseException
+     */
+    public static void buildJavaVo(File xmlFile, String voPath) throws EDIParseException {
         BuildMsg buildMsg = new BuildMsg();
         buildMsg.writeToJavaFile(xmlFile, voPath);
     }

@@ -60,12 +60,12 @@ public abstract class MSG extends EDIObject {
                     }
                 }
 
-//                CODELIST codelist = rule.codelist();
-//                if(!CODELIST.SYS_NONE.equals(codelist)){
-//                    if (!FCIRuleHelper.checkCodeList(this.getClass(),codelist,value.toString())) {
-//                        return "属性：" + name +"的CODELIST:"+codelist+"="+value+",与"+this.getClass().getSimpleName()+"中定义的不匹配";
-//                    }
-//                }
+                String codelist = rule.codelist();
+                if(!"".equals(codelist)){
+                    if (!FCIRuleHelper.checkCodeList(this.getClass(),codelist,value.toString())) {
+                        return "属性：" + name +"的CODELIST:"+codelist+"="+value+",与"+this.getClass().getSimpleName()+"中定义的不匹配";
+                    }
+                }
 
             }
         } catch (Exception e) {

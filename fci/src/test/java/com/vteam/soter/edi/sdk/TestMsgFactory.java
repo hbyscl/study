@@ -174,11 +174,11 @@ public class TestMsgFactory {
 
     @Test
     public void testBuildMsgVO() throws Exception{
-        File xmlPath = new File("E:\\project\\study\\fci\\src\\main\\resources");
+        File xmlPath = new File("E:\\project\\study\\fci\\src\\main\\resources\\xml");
         Stream.of(xmlPath.listFiles((dir, name) -> name.endsWith(".xml"))).forEach(
                 f -> {
                     try {
-                        MSGFactory.generatorJavaVo(f, "E:\\project\\study\\fci\\src\\main\\resources\\javafile");
+                        MSGFactory.generatorJavaVo(f, "E:\\project\\study\\fci\\src\\main\\java\\com\\vteam\\soter\\edi\\sdk\\vo");
                     } catch (EDIParseException e) {
                         e.printStackTrace();
                     }

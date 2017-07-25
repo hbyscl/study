@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.vteam.soter.edi.sdk.rule.Rule;
 import com.vteam.soter.edi.sdk.rule.STATUS;
-public class MSG09 extends MSG{
+public class MSG02 extends MSG{
     @Rule(status = STATUS.M)
     private MsgInfo MsgInfo;
     public void setMsgInfo(MsgInfo MsgInfo){
@@ -32,49 +32,31 @@ public class MSG09 extends MSG{
         return this.IF;
     }
 
-    @Rule(status = STATUS.M,format = "AN..35")
-    private String InvBatchNr;
-    public void setInvBatchNr(String InvBatchNr){
-        this.InvBatchNr=InvBatchNr;
-    }
-    public String getInvBatchNr(){
-        return this.InvBatchNr;
-    }
-
     @Rule(status = STATUS.M,format = "YYYY-MM-DD")
-    private String InvBatchDate;
-    public void setInvBatchDate(String InvBatchDate){
-        this.InvBatchDate=InvBatchDate;
+    private String RequestDate;
+    public void setRequestDate(String RequestDate){
+        this.RequestDate=RequestDate;
     }
-    public String getInvBatchDate(){
-        return this.InvBatchDate;
-    }
-
-    @Rule(status = STATUS.M,format = "AN3",codelist = "Currency")
-    private String InvBatchCurrency;
-    public void setInvBatchCurrency(String InvBatchCurrency){
-        this.InvBatchCurrency=InvBatchCurrency;
-    }
-    public String getInvBatchCurrency(){
-        return this.InvBatchCurrency;
+    public String getRequestDate(){
+        return this.RequestDate;
     }
 
-    @Rule(status = STATUS.M,format = "N14.2{amount}")
-    private String TotAmtInvoices;
-    public void setTotAmtInvoices(String TotAmtInvoices){
-        this.TotAmtInvoices=TotAmtInvoices;
+    @Rule(status = STATUS.M,format = "AN..35")
+    private String RequestNr;
+    public void setRequestNr(String RequestNr){
+        this.RequestNr=RequestNr;
     }
-    public String getTotAmtInvoices(){
-        return this.TotAmtInvoices;
+    public String getRequestNr(){
+        return this.RequestNr;
     }
 
-    @Rule(status = STATUS.M,format = "N14.2{amount}")
-    private String TotAmtCreditNotes;
-    public void setTotAmtCreditNotes(String TotAmtCreditNotes){
-        this.TotAmtCreditNotes=TotAmtCreditNotes;
+    @Rule(status = STATUS.M,format = "N..3",codelist = "MessageFunction")
+    private String MsgFunction;
+    public void setMsgFunction(String MsgFunction){
+        this.MsgFunction=MsgFunction;
     }
-    public String getTotAmtCreditNotes(){
-        return this.TotAmtCreditNotes;
+    public String getMsgFunction(){
+        return this.MsgFunction;
     }
 
     @Rule(status = STATUS.M)
@@ -87,27 +69,30 @@ public class MSG09 extends MSG{
     }
 
     @Rule(status = STATUS.M)
-    private List<InvCreditNoteDetails> InvCreditNoteDetails;
-    public void setInvCreditNoteDetails(List<InvCreditNoteDetails> InvCreditNoteDetails){
-        this.InvCreditNoteDetails=InvCreditNoteDetails;
+    private Buyer Buyer;
+    public void setBuyer(Buyer Buyer){
+        this.Buyer=Buyer;
     }
-    public List<InvCreditNoteDetails> getInvCreditNoteDetails(){
-        return this.InvCreditNoteDetails;
+    public Buyer getBuyer(){
+        return this.Buyer;
     }
-    public void addInvCreditNoteDetails(InvCreditNoteDetails InvCreditNoteDetails){
-        if(null == this.InvCreditNoteDetails){
-            this.InvCreditNoteDetails= new ArrayList<InvCreditNoteDetails>();
-        }
-        this.InvCreditNoteDetails.add(InvCreditNoteDetails);
+
+    @Rule(status = STATUS.C)
+    private BankDetailsBuyer BankDetailsBuyer;
+    public void setBankDetailsBuyer(BankDetailsBuyer BankDetailsBuyer){
+        this.BankDetailsBuyer=BankDetailsBuyer;
+    }
+    public BankDetailsBuyer getBankDetailsBuyer(){
+        return this.BankDetailsBuyer;
     }
 
     @Rule(status = STATUS.M)
-    private ControlTot ControlTot;
-    public void setControlTot(ControlTot ControlTot){
-        this.ControlTot=ControlTot;
+    private PrelCreditAssessDetails PrelCreditAssessDetails;
+    public void setPrelCreditAssessDetails(PrelCreditAssessDetails PrelCreditAssessDetails){
+        this.PrelCreditAssessDetails=PrelCreditAssessDetails;
     }
-    public ControlTot getControlTot(){
-        return this.ControlTot;
+    public PrelCreditAssessDetails getPrelCreditAssessDetails(){
+        return this.PrelCreditAssessDetails;
     }
 
     @Rule(status = STATUS.C,format = "AN..1400")
@@ -228,7 +213,7 @@ public static class IF{
 }
 
 public static class Seller{
-    @Rule(status = STATUS.M,format = "AN..35",codelist = "FSBC")
+    @Rule(status = STATUS.M,format = "AN..35")
     private String SellerNr;
     public void setSellerNr(String SellerNr){
         this.SellerNr=SellerNr;
@@ -237,7 +222,7 @@ public static class Seller{
         return this.SellerNr;
     }
 
-    @Rule(status = STATUS.C,format = "AN..35",noInput = true)
+    @Rule(status = STATUS.M,format = "AN..35")
     private String SellerName;
     public void setSellerName(String SellerName){
         this.SellerName=SellerName;
@@ -248,8 +233,26 @@ public static class Seller{
 
 }
 
-public static class InvCreditNoteDetails{
-    @Rule(status = STATUS.M,format = "AN..35",codelist = "FSBC")
+public static class Buyer{
+    @Rule(status = STATUS.C,format = "AN..35")
+    private String BuyerCompanyRegNr;
+    public void setBuyerCompanyRegNr(String BuyerCompanyRegNr){
+        this.BuyerCompanyRegNr=BuyerCompanyRegNr;
+    }
+    public String getBuyerCompanyRegNr(){
+        return this.BuyerCompanyRegNr;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..35")
+    private String ResponseAgency;
+    public void setResponseAgency(String ResponseAgency){
+        this.ResponseAgency=ResponseAgency;
+    }
+    public String getResponseAgency(){
+        return this.ResponseAgency;
+    }
+
+    @Rule(status = STATUS.M,format = "AN..35")
     private String BuyerNr;
     public void setBuyerNr(String BuyerNr){
         this.BuyerNr=BuyerNr;
@@ -258,7 +261,7 @@ public static class InvCreditNoteDetails{
         return this.BuyerNr;
     }
 
-    @Rule(status = STATUS.C,format = "AN..35",noInput = true)
+    @Rule(status = STATUS.M,format = "AN..35")
     private String BuyerName;
     public void setBuyerName(String BuyerName){
         this.BuyerName=BuyerName;
@@ -267,61 +270,157 @@ public static class InvCreditNoteDetails{
         return this.BuyerName;
     }
 
-    @Rule(status = STATUS.M,format = "N..3",codelist = "DocumentType")
-    private String DocType;
-    public void setDocType(String DocType){
-        this.DocType=DocType;
+    @Rule(status = STATUS.C,format = "AN..35")
+    private String NameCont;
+    public void setNameCont(String NameCont){
+        this.NameCont=NameCont;
     }
-    public String getDocType(){
-        return this.DocType;
+    public String getNameCont(){
+        return this.NameCont;
     }
 
     @Rule(status = STATUS.M,format = "AN..35")
-    private String DocNr;
-    public void setDocNr(String DocNr){
-        this.DocNr=DocNr;
+    private String Street;
+    public void setStreet(String Street){
+        this.Street=Street;
     }
-    public String getDocNr(){
-        return this.DocNr;
-    }
-
-    @Rule(status = STATUS.M,format = "YYYY-MM-DD")
-    private String DocDate;
-    public void setDocDate(String DocDate){
-        this.DocDate=DocDate;
-    }
-    public String getDocDate(){
-        return this.DocDate;
+    public String getStreet(){
+        return this.Street;
     }
 
+    @Rule(status = STATUS.M,format = "AN..35")
+    private String City;
+    public void setCity(String City){
+        this.City=City;
+    }
+    public String getCity(){
+        return this.City;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..9")
+    private String State;
+    public void setState(String State){
+        this.State=State;
+    }
+    public String getState(){
+        return this.State;
+    }
+
+    @Rule(status = STATUS.M,format = "AN..9")
+    private String Postcode;
+    public void setPostcode(String Postcode){
+        this.Postcode=Postcode;
+    }
+    public String getPostcode(){
+        return this.Postcode;
+    }
+
+    @Rule(status = STATUS.M,format = "AN2",codelist = "Country")
+    private String Country;
+    public void setCountry(String Country){
+        this.Country=Country;
+    }
+    public String getCountry(){
+        return this.Country;
+    }
+
+    @Rule(status = STATUS.M,format = "N..3",codelist = "DirectContactAllowed")
+    private String DirectContact;
+    public void setDirectContact(String DirectContact){
+        this.DirectContact=DirectContact;
+    }
+    public String getDirectContact(){
+        return this.DirectContact;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..35")
+    private String ContactName;
+    public void setContactName(String ContactName){
+        this.ContactName=ContactName;
+    }
+    public String getContactName(){
+        return this.ContactName;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..25")
+    private String Telephone;
+    public void setTelephone(String Telephone){
+        this.Telephone=Telephone;
+    }
+    public String getTelephone(){
+        return this.Telephone;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..25")
+    private String Fax;
+    public void setFax(String Fax){
+        this.Fax=Fax;
+    }
+    public String getFax(){
+        return this.Fax;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..70")
+    private String Email;
+    public void setEmail(String Email){
+        this.Email=Email;
+    }
+    public String getEmail(){
+        return this.Email;
+    }
+
+}
+
+public static class BankDetailsBuyer{
+    @Rule(status = STATUS.C,format = "AN..35")
+    private String AccountNr;
+    public void setAccountNr(String AccountNr){
+        this.AccountNr=AccountNr;
+    }
+    public String getAccountNr(){
+        return this.AccountNr;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..70")
+    private String BankName;
+    public void setBankName(String BankName){
+        this.BankName=BankName;
+    }
+    public String getBankName(){
+        return this.BankName;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..70")
+    private String BranchName;
+    public void setBranchName(String BranchName){
+        this.BranchName=BranchName;
+    }
+    public String getBranchName(){
+        return this.BranchName;
+    }
+
+}
+
+public static class PrelCreditAssessDetails{
     @Rule(status = STATUS.M,format = "N14.2{amount}")
-    private String DocAmt;
-    public void setDocAmt(String DocAmt){
-        this.DocAmt=DocAmt;
+    private String AmtCreditAssessReq;
+    public void setAmtCreditAssessReq(String AmtCreditAssessReq){
+        this.AmtCreditAssessReq=AmtCreditAssessReq;
     }
-    public String getDocAmt(){
-        return this.DocAmt;
-    }
-
-    @Rule(status = STATUS.M,format = "YYYY-MM-DD")
-    private String DocDueDate;
-    public void setDocDueDate(String DocDueDate){
-        this.DocDueDate=DocDueDate;
-    }
-    public String getDocDueDate(){
-        return this.DocDueDate;
+    public String getAmtCreditAssessReq(){
+        return this.AmtCreditAssessReq;
     }
 
-    @Rule(status = STATUS.C,format = "YYYY-MM-DD")
-    private String DocValueDate;
-    public void setDocValueDate(String DocValueDate){
-        this.DocValueDate=DocValueDate;
+    @Rule(status = STATUS.M,format = "AN3",codelist = "Currency")
+    private String Currency;
+    public void setCurrency(String Currency){
+        this.Currency=Currency;
     }
-    public String getDocValueDate(){
-        return this.DocValueDate;
+    public String getCurrency(){
+        return this.Currency;
     }
 
-    @Rule(status = STATUS.C,format = "N..3{0-999}")
+    @Rule(status = STATUS.M,format = "N..3{0-999}")
     private String NetPmtTerms;
     public void setNetPmtTerms(String NetPmtTerms){
         this.NetPmtTerms=NetPmtTerms;
@@ -364,54 +463,6 @@ public static class InvCreditNoteDetails{
     }
     public String getDiscount2Perc(){
         return this.Discount2Perc;
-    }
-
-    @Rule(status = STATUS.C,format = "N..3",codelist = "PaymentConditions")
-    private String PmtCondition;
-    public void setPmtCondition(String PmtCondition){
-        this.PmtCondition=PmtCondition;
-    }
-    public String getPmtCondition(){
-        return this.PmtCondition;
-    }
-
-    @Rule(status = STATUS.C,format = "AN..35")
-    private String OrderNrRef;
-    public void setOrderNrRef(String OrderNrRef){
-        this.OrderNrRef=OrderNrRef;
-    }
-    public String getOrderNrRef(){
-        return this.OrderNrRef;
-    }
-
-    @Rule(status = STATUS.C,format = "AN..35")
-    private String InvRefNr;
-    public void setInvRefNr(String InvRefNr){
-        this.InvRefNr=InvRefNr;
-    }
-    public String getInvRefNr(){
-        return this.InvRefNr;
-    }
-
-}
-
-public static class ControlTot{
-    @Rule(status = STATUS.M,format = "N..3{0-999}")
-    private String TotNrInvoices;
-    public void setTotNrInvoices(String TotNrInvoices){
-        this.TotNrInvoices=TotNrInvoices;
-    }
-    public String getTotNrInvoices(){
-        return this.TotNrInvoices;
-    }
-
-    @Rule(status = STATUS.M,format = "N..3{0-999}")
-    private String TotNrCreditNotes;
-    public void setTotNrCreditNotes(String TotNrCreditNotes){
-        this.TotNrCreditNotes=TotNrCreditNotes;
-    }
-    public String getTotNrCreditNotes(){
-        return this.TotNrCreditNotes;
     }
 
 }

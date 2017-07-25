@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.vteam.soter.edi.sdk.rule.Rule;
 import com.vteam.soter.edi.sdk.rule.STATUS;
-public class MSG09 extends MSG{
+public class MSG15 extends MSG{
     @Rule(status = STATUS.M)
     private MsgInfo MsgInfo;
     public void setMsgInfo(MsgInfo MsgInfo){
@@ -32,49 +32,58 @@ public class MSG09 extends MSG{
         return this.IF;
     }
 
-    @Rule(status = STATUS.M,format = "AN..35")
-    private String InvBatchNr;
-    public void setInvBatchNr(String InvBatchNr){
-        this.InvBatchNr=InvBatchNr;
+    @Rule(status = STATUS.M,format = "YYYY-MM-DD")
+    private String MsgDate;
+    public void setMsgDate(String MsgDate){
+        this.MsgDate=MsgDate;
     }
-    public String getInvBatchNr(){
-        return this.InvBatchNr;
+    public String getMsgDate(){
+        return this.MsgDate;
+    }
+
+    @Rule(status = STATUS.M,format = "AN..35")
+    private String DisputeNr;
+    public void setDisputeNr(String DisputeNr){
+        this.DisputeNr=DisputeNr;
+    }
+    public String getDisputeNr(){
+        return this.DisputeNr;
     }
 
     @Rule(status = STATUS.M,format = "YYYY-MM-DD")
-    private String InvBatchDate;
-    public void setInvBatchDate(String InvBatchDate){
-        this.InvBatchDate=InvBatchDate;
+    private String DateOriginDispute;
+    public void setDateOriginDispute(String DateOriginDispute){
+        this.DateOriginDispute=DateOriginDispute;
     }
-    public String getInvBatchDate(){
-        return this.InvBatchDate;
+    public String getDateOriginDispute(){
+        return this.DateOriginDispute;
     }
 
     @Rule(status = STATUS.M,format = "AN3",codelist = "Currency")
-    private String InvBatchCurrency;
-    public void setInvBatchCurrency(String InvBatchCurrency){
-        this.InvBatchCurrency=InvBatchCurrency;
+    private String DisputeCurrency;
+    public void setDisputeCurrency(String DisputeCurrency){
+        this.DisputeCurrency=DisputeCurrency;
     }
-    public String getInvBatchCurrency(){
-        return this.InvBatchCurrency;
-    }
-
-    @Rule(status = STATUS.M,format = "N14.2{amount}")
-    private String TotAmtInvoices;
-    public void setTotAmtInvoices(String TotAmtInvoices){
-        this.TotAmtInvoices=TotAmtInvoices;
-    }
-    public String getTotAmtInvoices(){
-        return this.TotAmtInvoices;
+    public String getDisputeCurrency(){
+        return this.DisputeCurrency;
     }
 
-    @Rule(status = STATUS.M,format = "N14.2{amount}")
-    private String TotAmtCreditNotes;
-    public void setTotAmtCreditNotes(String TotAmtCreditNotes){
-        this.TotAmtCreditNotes=TotAmtCreditNotes;
+    @Rule(status = STATUS.M,format = "N..3",codelist = "DisputeStatus")
+    private String DisputeStatus;
+    public void setDisputeStatus(String DisputeStatus){
+        this.DisputeStatus=DisputeStatus;
     }
-    public String getTotAmtCreditNotes(){
-        return this.TotAmtCreditNotes;
+    public String getDisputeStatus(){
+        return this.DisputeStatus;
+    }
+
+    @Rule(status = STATUS.C,format = "YYYY-MM-DD")
+    private String DateSettlementDispute;
+    public void setDateSettlementDispute(String DateSettlementDispute){
+        this.DateSettlementDispute=DateSettlementDispute;
+    }
+    public String getDateSettlementDispute(){
+        return this.DateSettlementDispute;
     }
 
     @Rule(status = STATUS.M)
@@ -87,36 +96,45 @@ public class MSG09 extends MSG{
     }
 
     @Rule(status = STATUS.M)
-    private List<InvCreditNoteDetails> InvCreditNoteDetails;
-    public void setInvCreditNoteDetails(List<InvCreditNoteDetails> InvCreditNoteDetails){
-        this.InvCreditNoteDetails=InvCreditNoteDetails;
+    private Buyer Buyer;
+    public void setBuyer(Buyer Buyer){
+        this.Buyer=Buyer;
     }
-    public List<InvCreditNoteDetails> getInvCreditNoteDetails(){
-        return this.InvCreditNoteDetails;
-    }
-    public void addInvCreditNoteDetails(InvCreditNoteDetails InvCreditNoteDetails){
-        if(null == this.InvCreditNoteDetails){
-            this.InvCreditNoteDetails= new ArrayList<InvCreditNoteDetails>();
-        }
-        this.InvCreditNoteDetails.add(InvCreditNoteDetails);
+    public Buyer getBuyer(){
+        return this.Buyer;
     }
 
     @Rule(status = STATUS.M)
-    private ControlTot ControlTot;
-    public void setControlTot(ControlTot ControlTot){
-        this.ControlTot=ControlTot;
+    private List<DisputeDetails> DisputeDetails;
+    public void setDisputeDetails(List<DisputeDetails> DisputeDetails){
+        this.DisputeDetails=DisputeDetails;
     }
-    public ControlTot getControlTot(){
-        return this.ControlTot;
+    public List<DisputeDetails> getDisputeDetails(){
+        return this.DisputeDetails;
+    }
+    public void addDisputeDetails(DisputeDetails DisputeDetails){
+        if(null == this.DisputeDetails){
+            this.DisputeDetails= new ArrayList<DisputeDetails>();
+        }
+        this.DisputeDetails.add(DisputeDetails);
     }
 
-    @Rule(status = STATUS.C,format = "AN..1400")
-    private String MsgText;
-    public void setMsgText(String MsgText){
-        this.MsgText=MsgText;
+    @Rule(status = STATUS.C,format = "AN..3500")
+    private String DisputeReasonText;
+    public void setDisputeReasonText(String DisputeReasonText){
+        this.DisputeReasonText=DisputeReasonText;
     }
-    public String getMsgText(){
-        return this.MsgText;
+    public String getDisputeReasonText(){
+        return this.DisputeReasonText;
+    }
+
+    @Rule(status = STATUS.C,format = "AN..3500")
+    private String ActionText;
+    public void setActionText(String ActionText){
+        this.ActionText=ActionText;
+    }
+    public String getActionText(){
+        return this.ActionText;
     }
 
 public static class MsgInfo{
@@ -248,7 +266,7 @@ public static class Seller{
 
 }
 
-public static class InvCreditNoteDetails{
+public static class Buyer{
     @Rule(status = STATUS.M,format = "AN..35",codelist = "FSBC")
     private String BuyerNr;
     public void setBuyerNr(String BuyerNr){
@@ -267,6 +285,9 @@ public static class InvCreditNoteDetails{
         return this.BuyerName;
     }
 
+}
+
+public static class DisputeDetails{
     @Rule(status = STATUS.M,format = "N..3",codelist = "DocumentType")
     private String DocType;
     public void setDocType(String DocType){
@@ -276,7 +297,7 @@ public static class InvCreditNoteDetails{
         return this.DocType;
     }
 
-    @Rule(status = STATUS.M,format = "AN..35")
+    @Rule(status = STATUS.C,format = "AN..35")
     private String DocNr;
     public void setDocNr(String DocNr){
         this.DocNr=DocNr;
@@ -285,7 +306,7 @@ public static class InvCreditNoteDetails{
         return this.DocNr;
     }
 
-    @Rule(status = STATUS.M,format = "YYYY-MM-DD")
+    @Rule(status = STATUS.C,format = "YYYY-MM-DD")
     private String DocDate;
     public void setDocDate(String DocDate){
         this.DocDate=DocDate;
@@ -294,7 +315,7 @@ public static class InvCreditNoteDetails{
         return this.DocDate;
     }
 
-    @Rule(status = STATUS.M,format = "N14.2{amount}")
+    @Rule(status = STATUS.C,format = "N14.2{amount}")
     private String DocAmt;
     public void setDocAmt(String DocAmt){
         this.DocAmt=DocAmt;
@@ -303,115 +324,49 @@ public static class InvCreditNoteDetails{
         return this.DocAmt;
     }
 
-    @Rule(status = STATUS.M,format = "YYYY-MM-DD")
-    private String DocDueDate;
-    public void setDocDueDate(String DocDueDate){
-        this.DocDueDate=DocDueDate;
+    @Rule(status = STATUS.M,format = "N14.2{amount}")
+    private String DisputeAmt;
+    public void setDisputeAmt(String DisputeAmt){
+        this.DisputeAmt=DisputeAmt;
     }
-    public String getDocDueDate(){
-        return this.DocDueDate;
-    }
-
-    @Rule(status = STATUS.C,format = "YYYY-MM-DD")
-    private String DocValueDate;
-    public void setDocValueDate(String DocValueDate){
-        this.DocValueDate=DocValueDate;
-    }
-    public String getDocValueDate(){
-        return this.DocValueDate;
+    public String getDisputeAmt(){
+        return this.DisputeAmt;
     }
 
-    @Rule(status = STATUS.C,format = "N..3{0-999}")
-    private String NetPmtTerms;
-    public void setNetPmtTerms(String NetPmtTerms){
-        this.NetPmtTerms=NetPmtTerms;
+    @Rule(status = STATUS.M,format = "N..3",codelist = "DisputeReason")
+    private String DisputeReason;
+    public void setDisputeReason(String DisputeReason){
+        this.DisputeReason=DisputeReason;
     }
-    public String getNetPmtTerms(){
-        return this.NetPmtTerms;
-    }
-
-    @Rule(status = STATUS.C,format = "N..3{0-999}")
-    private String Discount1Days;
-    public void setDiscount1Days(String Discount1Days){
-        this.Discount1Days=Discount1Days;
-    }
-    public String getDiscount1Days(){
-        return this.Discount1Days;
+    public String getDisputeReason(){
+        return this.DisputeReason;
     }
 
-    @Rule(status = STATUS.C,format = "N3.4{0-100.0000}")
-    private String Discount1Perc;
-    public void setDiscount1Perc(String Discount1Perc){
-        this.Discount1Perc=Discount1Perc;
+    @Rule(status = STATUS.C,format = "N..3",codelist = "InstructionStatus")
+    private String InstructionStatus;
+    public void setInstructionStatus(String InstructionStatus){
+        this.InstructionStatus=InstructionStatus;
     }
-    public String getDiscount1Perc(){
-        return this.Discount1Perc;
-    }
-
-    @Rule(status = STATUS.C,format = "N..3{0-999}")
-    private String Discount2Days;
-    public void setDiscount2Days(String Discount2Days){
-        this.Discount2Days=Discount2Days;
-    }
-    public String getDiscount2Days(){
-        return this.Discount2Days;
+    public String getInstructionStatus(){
+        return this.InstructionStatus;
     }
 
-    @Rule(status = STATUS.C,format = "N3.4{0-100.0000}")
-    private String Discount2Perc;
-    public void setDiscount2Perc(String Discount2Perc){
-        this.Discount2Perc=Discount2Perc;
+    @Rule(status = STATUS.M,format = "AN..35")
+    private String NotifyingParty;
+    public void setNotifyingParty(String NotifyingParty){
+        this.NotifyingParty=NotifyingParty;
     }
-    public String getDiscount2Perc(){
-        return this.Discount2Perc;
-    }
-
-    @Rule(status = STATUS.C,format = "N..3",codelist = "PaymentConditions")
-    private String PmtCondition;
-    public void setPmtCondition(String PmtCondition){
-        this.PmtCondition=PmtCondition;
-    }
-    public String getPmtCondition(){
-        return this.PmtCondition;
+    public String getNotifyingParty(){
+        return this.NotifyingParty;
     }
 
-    @Rule(status = STATUS.C,format = "AN..35")
-    private String OrderNrRef;
-    public void setOrderNrRef(String OrderNrRef){
-        this.OrderNrRef=OrderNrRef;
+    @Rule(status = STATUS.C,format = "N..3",codelist = "ActionTaken")
+    private String Action;
+    public void setAction(String Action){
+        this.Action=Action;
     }
-    public String getOrderNrRef(){
-        return this.OrderNrRef;
-    }
-
-    @Rule(status = STATUS.C,format = "AN..35")
-    private String InvRefNr;
-    public void setInvRefNr(String InvRefNr){
-        this.InvRefNr=InvRefNr;
-    }
-    public String getInvRefNr(){
-        return this.InvRefNr;
-    }
-
-}
-
-public static class ControlTot{
-    @Rule(status = STATUS.M,format = "N..3{0-999}")
-    private String TotNrInvoices;
-    public void setTotNrInvoices(String TotNrInvoices){
-        this.TotNrInvoices=TotNrInvoices;
-    }
-    public String getTotNrInvoices(){
-        return this.TotNrInvoices;
-    }
-
-    @Rule(status = STATUS.M,format = "N..3{0-999}")
-    private String TotNrCreditNotes;
-    public void setTotNrCreditNotes(String TotNrCreditNotes){
-        this.TotNrCreditNotes=TotNrCreditNotes;
-    }
-    public String getTotNrCreditNotes(){
-        return this.TotNrCreditNotes;
+    public String getAction(){
+        return this.Action;
     }
 
 }

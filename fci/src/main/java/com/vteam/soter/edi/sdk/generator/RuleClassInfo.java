@@ -35,7 +35,6 @@ public class RuleClassInfo {
         } else {
             sb.append("package com.vteam.soter.edi.sdk.vo;\n\n");
             sb.append("import java.util.*;\n");
-            sb.append("import com.vteam.soter.edi.sdk.rule.CODELIST;\n");
             sb.append("import com.vteam.soter.edi.sdk.rule.Rule;\n");
             sb.append("import com.vteam.soter.edi.sdk.rule.STATUS;\n");
             sb.append("public class ");
@@ -184,9 +183,10 @@ public class RuleClassInfo {
                     hasElement = true;
                 }
                 else if("codelist".equals(key)){
-//                    rule.append("codelist = CODELIST.");
-//                    rule.append(value);
-//                    hasElement = true;
+                    rule.append("codelist = \"");
+                    rule.append(value);
+                    rule.append("\"");
+                    hasElement = true;
                 }
             }
 

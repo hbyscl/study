@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 public @interface Rule {
     STATUS status();
     String format() default "";
-    CODELIST codelist() default CODELIST.SYS_NONE;
+    String codelist() default "";
     boolean noInput() default false;
 }

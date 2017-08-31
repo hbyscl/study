@@ -1,7 +1,6 @@
 package com.vteam.soter.edi.sdk.rule;
 
 import com.vteam.soter.edi.sdk.vo.MSG;
-import com.vteam.soter.edi.sdk.vo.MSG09;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,7 +17,7 @@ public class EdiRuleHelper {
     private static final String AN_ANY = "AN..";
     private static final String AN_MUST = "AN";
     private static final String AMOUNT = "{amount}";
-    private static final String NEGATIVE_AMOUNT = "{(negative)amount}";
+    private static final String NEGATIVE_AMOUNT = "{(negative) amount}";
     private static final String NUMBER = "N..";
     private static final String DATE = "YYYY-MM-DD";
     private static final String DATETIME = "YYYY-MM-DDTHH:MM:SS";
@@ -71,7 +70,7 @@ public class EdiRuleHelper {
     );
 
     private static final Set<String> Country = new HashSet<String>(
-            Arrays.asList(new String[]{"AE", "AD ", "AR ", "AT ", "AU ", "BE ", "BG ", "BO ", "BR ", "CA ", "CH ", "CL ", "CN", "CO ", "CR ", "CU ", "CY ", "CZ ", "DE ", "DK ", "EC ", "EE ", "ES ", "FI ", "FR ", "GB ", "GR ", "GT ", "HK ", "HN ", "HR ", "HU ", "ID ", "IE ", "IL ", "IN ", "IS ", "IT ", "JP ", "KR ", "LI ", "LK ", "LT ", "LU ", "LV ", "MA ", "MC ", "MO ", "MT ", "MX ", "MY ", "NI ", "NL ", "NO ", "NZ ", "OM ", "PA ", "PE ", "PH ", "PL ", "PR ", "PT ", "PY ", "RO ", "RU ", "SE ", "SG ", "SI ", "SK ", "SM ", "SV ", "TH ", "TN ", "TR ", "TW ", "UA ", "US ", "UY ", "VA ", "VE ", "ZA"})
+            Arrays.asList(new String[]{"AE", "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CN", "CO", "CR", "CU", "CY", "CZ", "DE", "DK", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JP", "KR", "LI", "LK", "LT", "LU", "LV", "MA", "MC", "MO", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PR", "PT", "PY", "RO", "RU", "SE", "SG", "SI", "SK", "SM", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VA", "VE", "ZA"})
     );
 
     private static Map<String, Set<String>> codeListDefine;
@@ -91,7 +90,8 @@ public class EdiRuleHelper {
             return value.length() == length;
         }
         // 金额数据，小数点左边不超过M位，小数点右边不超过N位 N14.2{amount}
-        else if (format.startsWith("N") && format.endsWith(AMOUNT)) {
+        else if (format.startsWith("N") && (format.endsWith(AMOUNT)
+                || format.endsWith(NEGATIVE_AMOUNT))) {
             if (!value.matches(NUMBER_REGEX)) {
                 return false;
             }
@@ -144,16 +144,13 @@ public class EdiRuleHelper {
         }
         // 指定长度小数 N3.4{0-100.0000}
         else if (format.startsWith("N") && format.contains(".") && format.contains("-")) {
-            if (!value.matches("[1-9]\\d*.\\d*|0.\\d*[1-9]\\d*")) {
-                return false;
-            }
             float fValue = Float.valueOf(value);
-            String[] numberStyle = format.substring(1, format.length() - format.indexOf("{")).
+            String[] numberStyle = format.substring(1, format.indexOf("{")).
                     split("\\.");
             int leftLength = Integer.valueOf(numberStyle[0]);
             int rightLength = Integer.valueOf(numberStyle[1]);
 
-            String[] interval = format.substring(format.indexOf("{"), format.indexOf("}")).split("-");
+            String[] interval = format.substring(format.indexOf("{") + 1, format.indexOf("}")).split("-");
 
             float min = Float.valueOf(interval[0]);
             float max = Float.valueOf(interval[1]);
@@ -195,7 +192,7 @@ public class EdiRuleHelper {
                 return false;
             }
         }
-
+        System.out.println("format = " + format);
         return false;
     }
 

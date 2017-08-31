@@ -1,6 +1,9 @@
 package com.vteam.soter.edi.sdk;
 
+import com.alibaba.fastjson.JSON;
+import com.vteam.soter.edi.sdk.rule.EdiRuleHelper;
 import com.vteam.soter.edi.sdk.vo.MSG;
+import com.vteam.soter.edi.sdk.vo.MSG01;
 import com.vteam.soter.edi.sdk.vo.MSG09;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -107,62 +110,44 @@ public class TestMsgFactory {
 
     @Test
     public void testMSG09XML() throws Exception {
-        String xml = "<MSG09 xmlns=\"urn:schemas-edifactoring-com:MSG09\">\n" +
-                "<MsgInfo>\n" +
-                "<SenderCode>CN01209</SenderCode>\n" +
-                "<ReceiverCode>CN01200</ReceiverCode>\n" +
-                "<CreatedBy>vteam001</CreatedBy>\n" +
-                "<SequenceNr>437402</SequenceNr>\n" +
-                "<DateTime>2009-12-16T10:49:37</DateTime>\n" +
-                "<Status>4</Status>\n" +
-                "</MsgInfo>\n" +
-                "<EF>\n" +
-                "<FactorCode>CN01209</FactorCode>\n" +
-                "<FactorName>CN01209</FactorName>\n" +
-                "</EF>\n" +
-                "<IF>\n" +
-                "<FactorCode>CN01200</FactorCode>\n" +
-                "<FactorName>China Merchants Bank</FactorName>\n" +
-                "</IF>\n" +
-                "<InvBatchNr>inv-20101224-01</InvBatchNr>\n" +
-                "<InvBatchDate>2009-11-06</InvBatchDate>\n" +
-                "<InvBatchCurrency>USD</InvBatchCurrency>\n" +
-                "<TotAmtInvoices>3000</TotAmtInvoices>\n" +
-                "<TotAmtCreditNotes>0</TotAmtCreditNotes>\n" +
-                "<Seller>\n" +
-                "<SellerNr>CNSEL02</SellerNr>\n" +
-                "<SellerName>edi test eng seller02</SellerName>\n" +
-                "</Seller>\n" +
-                "<InvCreditNoteDetails>\n" +
-                "<BuyerNr>CNBUY02</BuyerNr>\n" +
-                "<BuyerName>nt test seller02 abcdefghlijk abc</BuyerName>\n" +
-                "<DocType>1</DocType>\n" +
-                "<DocNr>inv-20110110-001</DocNr>\n" +
-                "<DocDate>2009-11-06</DocDate>\n" +
-                "<DocAmt>1000</DocAmt>\n" +
-                "<DocDueDate>2009-11-16</DocDueDate>\n" +
-                "<PmtCondition>1</PmtCondition>\n" +
-                "<OrderNrRef>Order Number Reference_vic</OrderNrRef>\n" +
-                "</InvCreditNoteDetails>\n" +
-                "<InvCreditNoteDetails>\n" +
-                "<BuyerNr>CNBUY02</BuyerNr>\n" +
-                "<BuyerName>nt test seller02 abcdefghlijk abc</BuyerName>\n" +
-                "<DocType>1</DocType>\n" +
-                "<DocNr>inv-20110110-002</DocNr>\n" +
-                "<DocDate>2009-11-06</DocDate>\n" +
-                "<DocAmt>2000</DocAmt>\n" +
-                "<DocDueDate>2009-11-16</DocDueDate>\n" +
-                "<PmtCondition>1</PmtCondition>\n" +
-                "<OrderNrRef>Order Number Reference_vic</OrderNrRef>\n" +
-                "</InvCreditNoteDetails>\n" +
-                "<ControlTot>\n" +
-                "<TotNrInvoices>2</TotNrInvoices>\n" +
-                "<TotNrCreditNotes>0</TotNrCreditNotes>\n" +
-                "</ControlTot>\n" +
-                "</MSG09>";
-        createdMsg = MSGFactory.buildMSG(MSG09.class, xml);
-        xml = MSGFactory.buildXML(msg);
-        System.out.println(xml);
+        String xml = "<MSG01 xmlns=\"urn:schemas-edifactoring-com:MSG01\">\n" +
+                "\t<MsgInfo>\n" +
+                "\t\t<SenderCode>CN00509</SenderCode>\n" +
+                "\t\t<ReceiverCode>CN00500</ReceiverCode>\n" +
+                "\t\t<CreatedBy>kpmg01</CreatedBy><SequenceNr>133388</SequenceNr><DateTime>2006-02-17T07:13:31</DateTime><Status>4</Status></MsgInfo>\n" +
+                "\t<EF>\n" +
+                "\t\t<FactorCode>CN00509</FactorCode>\n" +
+                "\t\t<FactorName>China Everbright Bank Test</FactorName></EF>\n" +
+                "\t<IF>\n" +
+                "\t\t<FactorCode>CN00500</FactorCode>\n" +
+                "\t\t<FactorName>China Everbright Bank</FactorName></IF>\n" +
+                "\t<MsgDate>2006-02-17</MsgDate>\n" +
+                "\t<MsgFunction>2</MsgFunction>\n" +
+                "\t<Seller>\n" +
+                "\t\t<SellerNr>EDITest2</SellerNr>\n" +
+                "\t\t<SellerName>EDITest2</SellerName>\n" +
+                "\t\t<Street>X</Street>\n" +
+                "\t\t<City>X</City>\n" +
+                "\t\t<Postcode>X</Postcode>\n" +
+                "\t\t<Country>CN</Country></Seller>\n" +
+                "\t<SellerDetails>\n" +
+                "\t\t<BusinessProduct>X</BusinessProduct>\n" +
+                "\t\t<NetPmtTerms>0</NetPmtTerms>\n" +
+                "\t\t<InvCurrency1>CNY</InvCurrency1>\n" +
+                "\t\t<ChargeBackPerc>0</ChargeBackPerc>\n" +
+                "\t\t<ChargeBackAmt>0</ChargeBackAmt>\n" +
+                "\t\t<ChargeBackCurrency>CNY</ChargeBackCurrency>\n" +
+                "\t\t<ExpTotSellerTurnover>X</ExpTotSellerTurnover>\n" +
+                "\t\t<ExpNrBuyers>0</ExpNrBuyers>\n" +
+                "\t\t<ExpNrInvoices>0</ExpNrInvoices>\n" +
+                "\t\t<ExpTurnover>X</ExpTurnover>\n" +
+                "\t\t<ExpOtherTurnover>X</ExpOtherTurnover>\n" +
+                "\t\t<OtherFactors>X</OtherFactors>\n" +
+                "\t\t<ServiceRequired>1</ServiceRequired></SellerDetails>\n" +
+                "\t<BankDetailsSeller/></MSG01>";
+        MSG01 msg01 = MSGFactory.buildMSG(MSG01.class, xml);
+//        xml = MSGFactory.buildXML(msg);
+//        System.out.println(xml);
     }
 
     @Test
@@ -177,6 +162,11 @@ public class TestMsgFactory {
 //                    }
 //                }
 //        );
+    }
+
+    @Test
+    public void testRule() throws Exception{
+        EdiRuleHelper.checkFormat("12.11","N3.4{0-100.0000}");
     }
 
 }

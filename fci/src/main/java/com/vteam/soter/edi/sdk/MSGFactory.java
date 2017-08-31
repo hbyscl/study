@@ -67,26 +67,11 @@ public class MSGFactory extends EDIObject {
      * @throws EDIParseException
      */
     public static <T extends MSG> T buildMSG(Class<T> msg, String xml) throws EDIParseException {
-        try {
-            T obj = msg.newInstance();
-            Document doc = DocumentHelper.parseText(xml);
-            Element rootElement = doc.getRootElement();
-            if (!rootElement.getName().equals(msg.getSimpleName())) {
-                throw new EDIParseException("XML与实体对象不匹配");
-            }
-            xml2obj(obj, rootElement);
-            String check = obj.check();
-            if ("".equals(check)) {
-                return obj;
-            }
-            throw new EDIParseException(check);
-        } catch (IllegalAccessException e) {
-            throw new EDIParseException("Illegal access : " + msg, e);
-        } catch (InstantiationException e) {
-            throw new EDIParseException("创建" + msg + "对象出错", e);
-        } catch (DocumentException e) {
-            throw new EDIParseException("XML解析出错", e);
-        }
+        return buildMSG(msg,xml,true);
+    }
+
+    public static <T extends MSG> T buildMSGDoNotCheck(Class<T> msg, String xml) throws EDIParseException {
+        return buildMSG(msg,xml,false);
     }
 
     /**
@@ -99,6 +84,32 @@ public class MSGFactory extends EDIObject {
     public static void buildJavaVo(File xmlFile, String voPath) throws EDIParseException {
         BuildMsg buildMsg = new BuildMsg();
         buildMsg.writeToJavaFile(xmlFile, voPath);
+    }
+
+    private static <T extends MSG> T buildMSG(Class<T> msg, String xml,boolean hasCheck) throws EDIParseException {
+        try {
+            T obj = msg.newInstance();
+            Document doc = DocumentHelper.parseText(xml);
+            Element rootElement = doc.getRootElement();
+            if (!rootElement.getName().equals(msg.getSimpleName())) {
+                throw new EDIParseException("XML与实体对象不匹配");
+            }
+            xml2obj(obj, rootElement);
+            if(hasCheck){
+                String check = obj.check();
+                if ("".equals(check)) {
+                    return obj;
+                }
+                throw new EDIParseException(check);
+            }
+            return obj;
+        } catch (IllegalAccessException e) {
+            throw new EDIParseException("Illegal access : " + msg, e);
+        } catch (InstantiationException e) {
+            throw new EDIParseException("创建" + msg + "对象出错", e);
+        } catch (DocumentException e) {
+            throw new EDIParseException("XML解析出错", e);
+        }
     }
 
     private static void obj2xml(Object msg, Branch element) throws EDIParseException {
@@ -138,7 +149,7 @@ public class MSGFactory extends EDIObject {
                     }
                 } else if (type.getName().equals("java.lang.String")) {
                     Element strEl = createElement(name);
-                    strEl.add(createText(null == value ? "" : value.toString()));
+                    strEl.add(createText(null == value ? "" : encode(value.toString())));
                     el.add(strEl);
                 } else {
                     obj2xml(value, el);
@@ -171,7 +182,7 @@ public class MSGFactory extends EDIObject {
                 } else if (type.getName().equals("java.lang.String")) {
                     Element strElement = el.element(name);
                     if (null != strElement) {
-                        setValue(obj, name, strElement.getTextTrim());
+                        setValue(obj, name, decode(strElement.getTextTrim()));
                     }
                 } else {
                     setValue(obj, name, xml2obj(type.newInstance(), el.element(name)));
